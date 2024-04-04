@@ -1,0 +1,34 @@
+we have to write prisma client code  with extending accelerate in every route request controller as we need to initialize the client again and again , there is a fix that you do this in a middleware
+
+
+to set and get header in hono is c.set("userId",user.id) , you can do this in middleware and pass down userId using next() by midddleware to the following req route. yu have to define extra keys and variables to context explicitly 
+
+but to set the variable you have to define the variable userId in hono in bindings and in variables like this
+
+export const blogRouter = new Hono<{
+  Bindings: {
+    DATABASE_URL: string;
+    JWT_SECRET: string;
+  };
+
+  Variables: {
+    userId: string; // you have to add userId variable in order to set userId property of jwt to user.id value , you have to define variable and bind it
+  };
+}>();
+
+by this only you will be able to access the variable 
+
+
+
+// npx wrangler whoami :- to check  user access details on the wrangler project 
+
+
+// you can update env variable in the worker project dashboard and edit and update env variable as per the production requirement
+
+
+// zod validation
+we will be doing zod validation in seperate module in npm package
+
+before mono repo people used to convert validation to the npm package and import as common module in both frontend and backend
+
+so we will publish code as a public package to npm and then access in frontend and backend
